@@ -4,15 +4,105 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PokemonActivity">
+    tools:context=".PokemonActivity"
+    android:background="@drawable/bg_linear_gradient">
 
-    <TextView
-        android:id="@+id/tvPokemonNombre"
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvImagePokemon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Nombre pokemon"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"
+        app:cardCornerRadius="8dp">
+        <ImageView
+            android:id="@+id/ivPokemon"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@color/black"/>
+    </com.google.android.material.card.MaterialCardView>
+    <ProgressBar
+        android:id="@+id/pbVida"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:progressBackgroundTint="@color/black"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/cvImagePokemon"
+        app:layout_constraintStart_toStartOf="@+id/cvImagePokemon"
+        app:layout_constraintTop_toBottomOf="@+id/cvImagePokemon"
+        tools:progress="50" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pbVida"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cvImagePokemon"
+        app:layout_constraintTop_toTopOf="parent"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvNombre"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:text="Nombre:" />
+            <TextView
+                android:id="@+id/tvPokemonNombre"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                tools:text="Nombre pokemon" />
+            <TextView
+                android:id="@+id/tvVida"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:layout_height="wrap_content"
+                android:text="Vida:" />
+            <TextView
+                android:id="@+id/tvPokemonVida"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:layout_height="wrap_content"
+                tools:text="XX / YY" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/iv_tipo1"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    tools:src="@mipmap/ic_agua"
+                    android:layout_marginEnd="15dp"/>
+                <ImageView
+                    android:id="@+id/iv_tipo2"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    tools:src="@mipmap/ic_agua"
+                    android:layout_marginEnd="15dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

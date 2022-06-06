@@ -7,16 +7,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokemonapp.databinding.ActivitySeleccionBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class MainActivity : AppCompatActivity() {
+interface PokemonFavoritoSelected {
+    fun pokemonFavoritoSelected(pokemon: Pokemon)
+}
+
+class MainActivity : AppCompatActivity(), PokemonFavoritoSelected {
 
     private lateinit var binding: ActivitySeleccionBinding
     private lateinit var listaPokemon: ListaPokemon
+    private var userToken = ""
 
     private val tagListaPokemon = "TAG_LISTA_POKEMON"
+    private val tagUserToken = "TAG_USER_TOKEN"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,9 +31,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.rvPokemon.layoutManager = LinearLayoutManager(this)
-        binding.rvPokemon.adapter = AdapterPokemon()
+        binding.rvPokemon.adapter = AdapterPokemon(this)
 
         readFromPreferences()
+
+        if (userToken.isEmpty()) {
+            loguearUsuario()
+        }
 
         actualizarAdapter(listaPokemon)
 
@@ -84,6 +95,22 @@ class MainActivity : AppCompatActivity() {
             ListaPokemon()
         } else {
             ListaPokemon.fromJson(pokemonsText)
+        }
+    }
+
+    private fun loguearUsuario(){
+        lifecycleScope.launch(Dispatchers.Main) {
+            userToken = LoguearUsuarioRequest.get()
+            println(userToken)
+        }
+    }
+
+    override fun pokemonFavoritoSelected(pokemon: Pokemon) {
+        lifecycleScope.launch(Dispatchers.Main) {
+            val success = PokemonFavoritoRequest.get(pokemon.id, userToken)
+            if (success){
+                Snackbar.make(binding.root, "El Pokemon favorito es: ${pokemon.name}", Snackbar.LENGTH_LONG).show()
+            }
         }
     }
 

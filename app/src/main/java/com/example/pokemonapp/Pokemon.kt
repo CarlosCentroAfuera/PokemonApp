@@ -39,8 +39,17 @@ data class Pokemon (
     val sprites: Sprites,
     val stats: List<Stat>,
     val types: List<Type>,
-    val weight: Long
+    val weight: Long,
 ) {
+
+    var vidaMaxima = 250
+    var vidaActual = vidaMaxima
+
+    fun iniciarVida() {
+        vidaMaxima = (150..250).random()
+        vidaActual = (0..vidaMaxima).random()
+    }
+
     fun nameCapitalized() = "${name[0].uppercase()}${name.drop(1)}"
 
     /* Es lo mismo que arriba

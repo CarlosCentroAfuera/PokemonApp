@@ -13,7 +13,7 @@ class ObtenerPokemonRequest {
         fun get(): ListaPokemon {
             val listaPokemon = ListaPokemon()
             val client = OkHttpClient()
-            for (i in 1..151) {
+            for (i in 1..150) {
                 val request = Request.Builder()
                     .url("https://pokeapi.co/api/v2/pokemon/${i}")
                     .build()
@@ -22,6 +22,7 @@ class ObtenerPokemonRequest {
                 if (response.isSuccessful) {
                     response.body?.string().let { responseBody ->
                         val pokemon = gson.fromJson(responseBody, Pokemon::class.java)
+                        pokemon.iniciarVida()
                         listaPokemon.agregar(pokemon)
                     }
 
