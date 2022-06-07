@@ -30,6 +30,29 @@ class MainActivity : AppCompatActivity(), PokemonFavoritoSelected {
         binding = ActivitySeleccionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Ejemplo de Enum
+        val usuario = Usuario("test1", "pass1")
+        println(usuario.tipoUsuario)
+        usuario.subirNivel()
+        println(usuario.tipoUsuario)
+        usuario.subirNivel()
+        println(usuario.tipoUsuario)
+        usuario.subirNivel()
+        println(usuario.tipoUsuario)
+        when (usuario.tipoUsuario){
+            TipoUsuario.PLATINO -> {
+
+            }
+            TipoUsuario.ORO -> {
+
+            }
+            TipoUsuario.PLATA -> {
+
+            }
+        }
+
+
+
         binding.rvPokemon.layoutManager = LinearLayoutManager(this)
         binding.rvPokemon.adapter = AdapterPokemon(this)
 
